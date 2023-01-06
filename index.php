@@ -1,3 +1,6 @@
+<?php
+include 'pages/koneksi.php';
+?>
 <!doctype html>
 <html lang="en">
 
@@ -15,27 +18,49 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">BU ATIK - Admin</a>
+            <a class="navbar-brand" href="index.php?p=home">BU ATIK - Admin</a>
             <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
+                        <a class="nav-link" href="index.php?p=home">Home </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="index.php?p=v_produk">Produk</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?p=v_kategori">Kategori</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?p=penjualan">Penjualan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?p=v_produk">Logout</a>
                     </li>
 
                 </ul>
-                <form class="d-flex my-2 my-lg-0">
-                    <input class="form-control me-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+
             </div>
         </div>
     </nav>
+    <div class="contaainer mt-5">
+        <?php
+        $pages_dir  =  'pages';
+        if (!empty($_GET['p'])) {
+            $pages  =  scandir($pages_dir, 0);
+            unset($pages[0], $pages[1]);
+            $p  =  $_GET['p'];
+            if (in_array($p . '.php', $pages)) {
+                include($pages_dir . '/' . $p . '.php');
+            } else {
+                echo "Halaman tidak ditemukan!";
+            }
+        } else {
+            include($pages_dir . '/home.php');
+        } ?>
+    </div>
 
 
 
