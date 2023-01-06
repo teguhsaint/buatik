@@ -45,7 +45,7 @@ include 'pages/koneksi.php';
             </div>
         </div>
     </nav>
-    <div class="contaainer mt-5">
+    <div class="container mt-5">
         <?php
         $pages_dir  =  'pages';
         if (!empty($_GET['p'])) {
