@@ -7,18 +7,20 @@
             <th>KATEGORI</th>
         </thead>
         <tbody>
-            <tr>
-                <?php $produk = mysqli_query($koneksi, "SELECT * from produk");
-                $no = 1;
-                while ($p = mysqli_fetch_array($produk)) {
-                ?>
+
+            <?php $produk = mysqli_query($koneksi, "SELECT * from produk JOIN kategori ON produk.kategori = kategori.id_kategori");
+            $no = 1;
+            while ($p = mysqli_fetch_array($produk)) {
+            ?><tr>
                     <td> <?= $no++; ?> </td>
+                   
                     <td> <?= $p['nama_product']; ?> </td>
                     <td> <?= $p['harga']; ?> </td>
-                    <td> <?= $p['kategori']; ?> </td>
-                <?php }
-                ?>
-            </tr>
+                    <td> <?= $p['nama_kategori']; ?> </td>
+                </tr>
+            <?php }
+            ?>
+
         </tbody>
     </table>
 </div>

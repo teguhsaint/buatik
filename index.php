@@ -11,6 +11,19 @@ include 'pages/koneksi.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        .img-cards {
+            display: block;
+            height: 200px;
+            width: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/rich/richtext.min.css">
@@ -47,6 +60,11 @@ include 'pages/koneksi.php';
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?p=v_produk">Logout</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?p=tes">Tes</a>
                     </li>
 
                 </ul>
