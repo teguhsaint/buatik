@@ -28,19 +28,17 @@ include 'pages/koneksi.php';
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?p=home">Home </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?p=v_produk">Produk</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Produk</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="index.php?p=input_produk">Tambah Produk</a>
+                            <a class="dropdown-item" href="index.php?p=v_produk">Lihat Produk</a>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?p=v_kategori">Kategori</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tambah</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownId">
-                            <a class="dropdown-item" href="index.php?p=input_produk">Tambah Produk</a>
-                            <a class="dropdown-item" href="index.php?p=input_kategori">Tambah Kategori</a>
-                        </div>
-                    </li>
+
 
 
                     <li class="nav-item">
