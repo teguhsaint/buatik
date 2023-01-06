@@ -67,7 +67,7 @@ if (!empty($_POST['simpan'])) {
     mysqli_query($koneksi, $kueri);
 ?>
     <script>
-        window.location = "http://localhost/buatik/index.php?p=input_produk&status=Berhasil";
+        window.location = "http://localhost/buatik/admin/index.php?p=input_produk&status=Berhasil";
     </script>
 <?php
 }
