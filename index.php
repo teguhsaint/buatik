@@ -1,4 +1,5 @@
 <?php
+
 include 'pages/koneksi.php';
 ?>
 <!doctype html>
@@ -81,6 +82,24 @@ include 'pages/koneksi.php';
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js' integrity='sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==' crossorigin='anonymous'></script>
 
     <script src="assets/rich/jquery.richtext.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <?php
+    if (!empty($_GET['status'])) {
+    ?>
+        <script>
+            Swal.fire({
+
+                icon: 'success',
+                title: 'Produk Berhasil Di Tambahkan',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+    <?php
+    }
+
+    ?>
 
     <script>
         $('.areas').richText();

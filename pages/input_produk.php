@@ -65,6 +65,11 @@ if (!empty($_POST['simpan'])) {
     $kueri = "INSERT INTO produk VALUES(NULL,'$nama','$harga','$kategori','$nama_gambar_baru','$keterangan')";
 
     mysqli_query($koneksi, $kueri);
+?>
+    <script>
+        window.location = "http://localhost/buatik/index.php?p=input_produk&status=Berhasil";
+    </script>
+<?php
 }
 
 ?>
