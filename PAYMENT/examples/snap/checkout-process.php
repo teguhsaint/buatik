@@ -1,47 +1,58 @@
 <?php
 
-require_once 'vendor/autoload.php';
+namespace Midtrans;
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+require_once dirname(__FILE__) . '/../../Midtrans.php';
 
 //Set Your server key
-Midtrans\Config::$serverKey = $_ENV['MIDTRANS_SERVER_KEY'];
-$clientKey = $_ENV['MIDTRANS_CLIENT_KEY'];
+Config::$serverKey = "SB-Mid-server-u1WC8Zfa_qNmpisNXEaGw3ke";
 
 // Uncomment for production environment
-// Midtrans\Config::$isProduction = true;
+// Config::$isProduction = true;
 
 // Enable sanitization
-Midtrans\Config::$isSanitized = true;
+Config::$isSanitized = true;
 
 // Enable 3D-Secure
-Midtrans\Config::$is3ds = true;
+Config::$is3ds = true;
 
 // Uncomment for append and override notification URL
-// Midtrans\Config::$appendNotifUrl = "https://example.com";
-// Midtrans\Config::$overrideNotifUrl = "https://example.com";
+// Config::$appendNotifUrl = "https://example.com";
+// Config::$overrideNotifUrl = "https://example.com";
+
+$nama = $_POST['nama'];
+$kota = $_POST['kota'];
+$desa = $_POST['desa'];
+$menu = $_POST['menu'];
+$jumlah = $_POST['jumlah'];
+$harga = $_POST['harga'];
+$total = $harga * $jumlah;
+$wa = $_POST['wa'];
+
+$order_id = rand();
+$kueri = "INSERT INTO transaksi VALUES(NULL,'$order_id','$nama','$desa $kota','$menu','$harga','$jumlah','$total','0','$wa')";
+$host = 'localhost';
+$user = 'root';
+$pass = '';
+$dbname = 'db_catering';
+$koneksi = mysqli_connect($host, $user, $pass, $dbname);
+
+mysqli_query($koneksi, $kueri);
 
 // Required
 $transaction_details = array(
-    'order_id' => rand(),
+    'order_id' => $order_id,
     'gross_amount' => 94000, // no decimal allowed for creditcard
 );
-
-$nilai = $_POST['amount'];
-$mn = $_POST['menu'];
-$nama = $_POST['nama'];
-$alamat = $_POST['kota'];
-$desa = $_POST['desa'];
-$jumlah = $_POST['jumlah'];
 
 // Optional
 $item1_details = array(
     'id' => 'a1',
-    'price' => $nilai * $jumlah,
-    'quantity' => 1,
-    'name' => "$mn"
+    'price' => $harga,
+    'quantity' => $jumlah,
+    'name' => "$nama"
 );
+
 
 
 // Optional
@@ -52,9 +63,8 @@ $billing_address = array(
     'first_name'    => "$nama",
     'last_name'     => "",
     'address'       => "$desa",
-    'city'          => "$alamat",
-    'postal_code'   => "143115",
-    'phone'         => "081122334455",
+    'city'          => "$kota",
+    'phone'         => "$wa",
     'country_code'  => 'IDN'
 );
 
@@ -63,9 +73,8 @@ $shipping_address = array(
     'first_name'    => "$nama",
     'last_name'     => "",
     'address'       => "$desa",
-    'city'          => "$alamat",
-    'postal_code'   => "143115",
-    'phone'         => "081122334455",
+    'city'          => "$kota",
+    'phone'         => "$wa",
     'country_code'  => 'IDN'
 );
 
@@ -73,14 +82,13 @@ $shipping_address = array(
 $customer_details = array(
     'first_name'    => "$nama",
     'last_name'     => "",
-    'email'         => "nadia@gmail.com",
-    'phone'         => "081122334455",
+    'phone'         => "$wa",
     'billing_address'  => $billing_address,
     'shipping_address' => $shipping_address
 );
 
 // Optional, remove this to display all available payment methods
-$enable_payments = array('credit_card', 'cimb_clicks', 'mandiri_clickpay', 'echannel', 'bca_clickpay');
+$enable_payments = array('credit_card', 'cimb_clicks', 'mandiri_clickpay', 'echannel');
 
 // Fill transaction details
 $transaction = array(
@@ -90,30 +98,19 @@ $transaction = array(
     'item_details' => $item_details,
 );
 
-$snapToken = Midtrans\Snap::getSnapToken($transaction);
+$snapToken = Snap::getSnapToken($transaction);
 echo "snapToken = " . $snapToken;
-$base = $_SERVER['REQUEST_URI'];
-
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout | Integrasi midtrans di aplikasi payment sederhana - qadrlabs.com</title>
-</head>
+<html>
 
 <body>
-    <br>
-    <br>
     <button id="pay-button">Pay!</button>
     <pre><div id="result-json">JSON result will appear here after payment:<br></div></pre>
 
     <!-- TODO: Remove ".sandbox" from script src URL for production environment. Also input your client key in "data-client-key" -->
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<?php echo $clientKey; ?>"></script>
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<Set your ClientKey here>"></script>
     <script type="text/javascript">
         document.getElementById('pay-button').onclick = function() {
             // SnapToken acquired from previous step

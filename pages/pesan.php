@@ -49,8 +49,10 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="mids/process.php" method="POST">
+                        <form action="PAYMENT/examples/snap/checkout-process.php" method="POST">
                             <input type="text" class="form-control" name="menu" id="" value="<?= $p['nama_product']; ?>">
+
+                            <input type="hidden" class="form-control" name="harga" id="" value="<?= $p['harga']; ?>">
 
 
                             <input type="hidden" class="form-control" name="amount" value="<?= $p['harga']; ?>" />
@@ -62,8 +64,11 @@
                             <br>
                             <label for="">Alamat Pengiriman</label>
                             <input type="text" placeholder="RT/RW, Desa, Kecamatan" class="form-control" name="desa" id="">
-<br>
+                            <br>
                             <input type="text" class="form-control" name="kota" id="">
+                            <br>
+                            <label for="">NO WA</label>
+                            <input type="text" class="form-control" name="wa" id="">
 
                             <br> <input type="number" name="jumlah" class="form-control" placeholder="Jumlah">
                             <br>

@@ -4,7 +4,7 @@ namespace Midtrans;
 
 require_once dirname(__FILE__) . '/../Midtrans.php';
 Config::$isProduction = false;
-Config::$serverKey = '<your serverkey>';
+Config::$serverKey = 'SB-Mid-server-u1WC8Zfa_qNmpisNXEaGw3ke';
 $notif = new Notification();
 
 $transaction = $notif->transaction_status;
@@ -18,18 +18,36 @@ if ($transaction == 'capture') {
         if ($fraud == 'challenge') {
             // TODO set payment status in merchant's database to 'Challenge by FDS'
             // TODO merchant should decide whether this transaction is authorized or not in MAP
-            echo "Transaction order_id: " . $order_id ." is challenged by FDS";
+            echo "Transaction order_id: " . $order_id . " is challenged by FDS";
         } else {
             // TODO set payment status in merchant's database to 'Success'
-            echo "Transaction order_id: " . $order_id ." successfully captured using " . $type;
+            echo "Transaction order_id: " . $order_id . " successfully captured using " . $type;
         }
     }
 } else if ($transaction == 'settlement') {
     // TODO set payment status in merchant's database to 'Settlement'
-    echo "Transaction order_id: " . $order_id ." successfully transfered using " . $type;
+    echo "Transaction order_id: " . $order_id . " successfully transfered using " . $type;
+    $kueri = "UPDATE transaksi SET order_status=1 WHERE order_id =$order_id;";
+    $host = 'localhost';
+    $user = 'root';
+    $pass = '';
+    $dbname = 'db_catering';
+    $koneksi = mysqli_connect($host, $user, $pass, $dbname);
+
+    mysqli_query($koneksi, $kueri);
 } else if ($transaction == 'pending') {
     // TODO set payment status in merchant's database to 'Pending'
     echo "Waiting customer to finish transaction order_id: " . $order_id . " using " . $type;
+    echo "Transaction order_id: " . $order_id . " successfully transfered using " . $type;
+    $kueri = "UPDATE transaksi SET order_status=2 WHERE order_id =$order_id;";
+    $host = 'localhost';
+    $user = 'root';
+    $pass = '';
+    $dbname = 'db_catering';
+    $koneksi = mysqli_connect($host, $user, $pass, $dbname);
+
+    mysqli_query($koneksi, $kueri);
+
 } else if ($transaction == 'deny') {
     // TODO set payment status in merchant's database to 'Denied'
     echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is denied.";
@@ -40,4 +58,3 @@ if ($transaction == 'capture') {
     // TODO set payment status in merchant's database to 'Denied'
     echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is canceled.";
 }
-?>
